@@ -1,0 +1,12 @@
+# Build
+bin/
+ojb/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# ASP.NET
+appsettings.Development.json
+
