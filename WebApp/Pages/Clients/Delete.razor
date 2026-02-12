@@ -2,11 +2,11 @@
 @inject HttpClient http
 @inject NavigationManager navManager
 
-<h1 class="mb-3">Delete Client</h1>
+<h1 class="mb-3">Deletar Cliente</h1>
 
-<p>Tem certeza que quer deletar esse cliente? @Id?</p>
+<p>Tem certeza que quer deletar esse cliente com o @Id?</p>
 
-<button class="btn btn-danger" @onclick="DeleteClient">Delete</button>
+<button class="btn btn-danger" @onclick="DeleteClient">Deletar</button>
 <a class="btn btn-secondary" href="/Clients">Cancel</a>
 
 @code {
@@ -16,7 +16,6 @@
     protected async Task DeleteClient()
     {
         var response = await http.DeleteAsync("https://localhost:4000/api/Clients/" + Id);
-        // redirect to list of clients
         navManager.NavigateTo("/Clients");
     }
 }

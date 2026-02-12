@@ -427,7 +427,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NET.Sdk.WebAssembly.Pack/10.0.2": {
+      "Microsoft.NET.Sdk.WebAssembly.Pack/10.0.3": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.Sdk.WebAssembly.Pack.props": {},
@@ -877,7 +877,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NET.Sdk.WebAssembly.Pack/10.0.2": {
+      "Microsoft.NET.Sdk.WebAssembly.Pack/10.0.3": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.Sdk.WebAssembly.Pack.props": {},
@@ -1764,10 +1764,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.NET.Sdk.WebAssembly.Pack/10.0.2": {
-      "sha512": "ZDAtI9V2EQajyccTZ67JtJWMCIpK3ZFgwqNHyfMieossRdB90WJ+IbYVKObLOLIv9Vkc3eJcrJD2CeffsF/nUA==",
+    "Microsoft.NET.Sdk.WebAssembly.Pack/10.0.3": {
+      "sha512": "Wv9ugg75HxuYeBxJSoK2UPN6lpqsASkyZwd90bdRyVKOtaXZFaKg7R+dYqbZSHJXAIxC1HOcYR0imuIcKpI1yw==",
       "type": "package",
-      "path": "microsoft.net.sdk.webassembly.pack/10.0.2",
+      "path": "microsoft.net.sdk.webassembly.pack/10.0.3",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -1797,7 +1797,7 @@
         "build/Microsoft.NET.Sdk.WebAssembly.Pack.targets",
         "build/Wasm.web.config",
         "build/browser.runtimeconfig.template.json",
-        "microsoft.net.sdk.webassembly.pack.10.0.2.nupkg.sha512",
+        "microsoft.net.sdk.webassembly.pack.10.0.3.nupkg.sha512",
         "microsoft.net.sdk.webassembly.pack.nuspec",
         "tools/net10.0/Microsoft.NET.Sdk.WebAssembly.Pack.Tasks.dll",
         "tools/net10.0/Microsoft.NET.WebAssembly.Webcil.dll",
@@ -1840,27 +1840,27 @@
       "Microsoft.AspNetCore.Components.WebAssembly >= 8.0.23",
       "Microsoft.AspNetCore.Components.WebAssembly.DevServer >= 8.0.23",
       "Microsoft.NET.ILLink.Tasks >= 8.0.23",
-      "Microsoft.NET.Sdk.WebAssembly.Pack >= 10.0.2"
+      "Microsoft.NET.Sdk.WebAssembly.Pack >= 10.0.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\matheus.azevedo\\.nuget\\packages\\": {},
+    "C:\\Users\\boca\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\matheus.azevedo\\Blazor\\WebApi\\WebApp\\WebApp.csproj",
+      "projectUniqueName": "C:\\Users\\boca\\Documents\\Blazor\\webapi\\WebApp\\WebApp.csproj",
       "projectName": "WebApp",
-      "projectPath": "C:\\Users\\matheus.azevedo\\Blazor\\WebApi\\WebApp\\WebApp.csproj",
-      "packagesPath": "C:\\Users\\matheus.azevedo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\matheus.azevedo\\Blazor\\WebApi\\WebApp\\obj\\",
+      "projectPath": "C:\\Users\\boca\\Documents\\Blazor\\webapi\\WebApp\\WebApp.csproj",
+      "packagesPath": "C:\\Users\\boca\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\boca\\Documents\\Blazor\\webapi\\WebApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\matheus.azevedo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\boca\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1869,6 +1869,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1887,7 +1888,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -1911,7 +1912,7 @@
           "Microsoft.NET.Sdk.WebAssembly.Pack": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[10.0.2, )",
+            "version": "[10.0.3, )",
             "autoReferenced": true
           }
         },
@@ -1926,12 +1927,30 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.23, 8.0.23]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.23, 8.0.23]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
+            "version": "[8.0.24, 8.0.24]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.23, 8.0.23]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200-preview.0.26103.119/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

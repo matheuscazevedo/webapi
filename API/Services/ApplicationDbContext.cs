@@ -10,6 +10,6 @@ namespace API.Services
         {
         }
         
-        public DbSet<Client>Clients { get; set; }
+        public DbSet<Cliente>Clientes { get; set; }
     }
 }

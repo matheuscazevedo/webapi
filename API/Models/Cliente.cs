@@ -1,6 +1,9 @@
-﻿namespace WebApp.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace API.Models
 {
-    public class Client
+    [Index("Email", IsUnique = true)]
+    public class Cliente
     {
         public int Id { get; set; }
         public string PrimeiroNome { get; set; } = "";

@@ -18,9 +18,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public List<Client> GetClients()
+        public List<Cliente> GetClients()
         {
-            return context.Clients
+            return context.Clientes
                           .OrderByDescending(c => c.Id)
                           .ToList();
         }
@@ -28,7 +28,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetClient(int id)
         {
-            var client = context.Clients.Find(id);
+            var client = context.Clientes.Find(id);
 
             if (client == null)
             {
@@ -41,28 +41,28 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult CreateClient(ClientDto clientDto)
         {
-            var otherClient = context.Clients
+            var otherClient = context.Clientes
                                      .FirstOrDefault(c => c.Email == clientDto.Email);
 
             if (otherClient != null)
             {
-                ModelState.AddModelError("Email", "The Email Address is already used");
+                ModelState.AddModelError("Email", "Este email já está em uso por outro usuário");
                 var validation = new ValidationProblemDetails(ModelState);
                 return BadRequest(validation);
             }
 
-            var client = new Client
+            var client = new Cliente
             {
-                FirstName = clientDto.FirstName,
-                LastName = clientDto.LastName,
+                PrimeiroNome = clientDto.PrimeiroNome,
+                Sobrenome = clientDto.Sobrenome,
                 Email = clientDto.Email,
-                Phone = clientDto.Phone ?? "",
-                Address = clientDto.Address ?? "",
+                Telefone = clientDto.Telefone ?? "",
+                Endereco = clientDto.Endereco ?? "",
                 Status = clientDto.Status,
-                CreatedAt = DateTime.Now
+                DataCriacao = DateTime.Now
             };
 
-            context.Clients.Add(client);
+            context.Clientes.Add(client);
             context.SaveChanges();
 
             return Ok(client);
@@ -71,30 +71,28 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public IActionResult EditClient(int id, ClientDto clientDto)
         {
-            // submitted data is valid
-
-            var otherClient = context.Clients
+            var otherClient = context.Clientes
                                      .FirstOrDefault(c => c.Id != id && c.Email == clientDto.Email);
 
             if (otherClient != null)
             {
-                ModelState.AddModelError("Email", "The Email Address is already used");
+                ModelState.AddModelError("Email", "Este email já está em uso por outro usuário");
                 var validation = new ValidationProblemDetails(ModelState);
                 return BadRequest(validation);
             }
 
-            var client = context.Clients.Find(id);
+            var client = context.Clientes.Find(id);
 
             if (client == null)
             {
                 return NotFound();
             }
 
-            client.FirstName = clientDto.FirstName;
-            client.LastName = clientDto.LastName;
+            client.PrimeiroNome = clientDto.PrimeiroNome;
+            client.Sobrenome = clientDto.Sobrenome;
             client.Email = clientDto.Email;
-            client.Phone = clientDto.Phone ?? "";
-            client.Address = clientDto.Address ?? "";
+            client.Telefone = clientDto.Telefone ?? "";
+            client.Endereco = clientDto.Endereco ?? "";
             client.Status = clientDto.Status;
 
             context.SaveChanges();
@@ -105,14 +103,14 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteClient(int id)
         {
-            var client = context.Clients.Find(id);
+            var client = context.Clientes.Find(id);
 
             if (client == null)
             {
                 return NotFound();
             }
 
-            context.Clients.Remove(client);
+            context.Clientes.Remove(client);
             context.SaveChanges();
 
             return Ok();

@@ -9,18 +9,18 @@
         <h1 class="mb-5">Novo Cliente</h1>
 
         <div class="row mb-3">
-            <label class="col-md-4 col-form-label">First Name</label>
+            <label class="col-md-4 col-form-label">Primeiro Nome</label>
             <div class="col-md-8">
-                <input class="form-control" @bind="ClientData.FirstName" />
-                <span class="text-danger">@Errors["FirstName"]?[0]</span>
+                <input class="form-control" @bind="ClientData.PrimeiroNome" />
+                <span class="text-danger">@Errors["Primeiro Nome"]?[0]</span>
             </div>
         </div>
 
         <div class="row mb-3">
-            <label class="col-md-4 col-form-label">Last Name</label>
+            <label class="col-md-4 col-form-label">Sobrenome</label>
             <div class="col-md-8">
-                <input class="form-control" @bind="ClientData.LastName" />
-                <span class="text-danger">@Errors["LastName"]?[0]</span>
+                <input class="form-control" @bind="ClientData.Sobrenome" />
+                <span class="text-danger">@Errors["Sobrenome"]?[0]</span>
             </div>
         </div>
 
@@ -33,18 +33,18 @@
         </div>
 
         <div class="row mb-3">
-            <label class="col-md-4 col-form-label">Phone</label>
+            <label class="col-md-4 col-form-label">Telefone</label>
             <div class="col-md-8">
-                <input class="form-control" @bind="ClientData.Phone" />
-                <span class="text-danger">@Errors["Phone"]?[0]</span>
+                <input class="form-control" @bind="ClientData.Telefone" />
+                <span class="text-danger">@Errors["Telefone"]?[0]</span>
             </div>
         </div>
 
         <div class="row mb-3">
-            <label class="col-md-4 col-form-label">Address</label>
+            <label class="col-md-4 col-form-label">Endereço</label>
             <div class="col-md-8">
-                <input class="form-control" @bind="ClientData.Address" />
-                <span class="text-danger">@Errors["Address"]?[0]</span>
+                <input class="form-control" @bind="ClientData.Endereco" />
+                <span class="text-danger">@Errors["Endereço"]?[0]</span>
             </div>
         </div>
 
@@ -52,11 +52,11 @@
             <label class="col-md-4 col-form-label">Status</label>
             <div class="col-md-8">
                 <select class="form-select" @bind="ClientData.Status">
-                    <option value="New">New</option>
-                    <option value="Permanent">Permanent</option>
-                    <option value="Lead">Lead</option>
-                    <option value="Occasional">Occasional</option>
-                    <option value="Inactive">Inactive</option>
+                    <option value="Novo">Novo</option>
+                    <option value="Permanente">Permanente</option>
+                    <option value="Líder">Líder</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Inativo">Inativo</option>
                 </select>
                 <span class="text-danger">@Errors["Status"]?[0]</span>
             </div>
@@ -64,7 +64,7 @@
 
         <div class="row">
             <div class="offset-md-4 col-md-4 d-grid">
-                <button class="btn btn-primary" @onclick="SaveClient">Submit</button>
+                <button class="btn btn-primary" @onclick="SaveClient">Enviar</button>
             </div>
             <div class="col-md-4 d-grid">
                 <a class="btn btn-outline-primary" href="/Clients">Cancel</a>
