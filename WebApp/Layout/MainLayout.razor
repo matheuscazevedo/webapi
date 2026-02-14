@@ -1,16 +1,82 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
+@* Required *@
+<MudThemeProvider @bind-IsDarkMode = "ModoEscuro"/>
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<MudOverlay LockScroll Style="position: fixed;" Visible="overlayVisivel" DarkBackground="true" Absolute="true" ZIndex="999999">
+    <MudProgressCircular Style="@($"color:{Colors.Indigo.Lighten5};")" Size="Size.Large" Indeterminate="true" />
+    <MudText Style="@($"color:{Colors.Indigo.Lighten5};")">Aguarde</MudText>
+</MudOverlay>
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudText Style="@($"color:{Colors.Indigo.Lighten5};")">Crud do boquinha</MudText>
+
+        <MudSpacer />
+        <MudToggleIconButton Toggled="ModoEscuro"
+                             ToggledChanged="OnChangeDarkMode"
+                             Icon="@Icons.Material.Filled.DarkMode"
+                             Color="@Color.Inherit"
+                             ToggledIcon="@Icons.Material.Filled.LightMode"
+                             ToggledColor="@Color.Inherit"
+                             title="@(ModoEscuro ? "Modo Claro" : "Modo Escuro")" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@DrawerExpanded" Elevation="1">
         <NavMenu />
-    </div>
+    </MudDrawer>
+    <MudMainContent Style="max-width: unset;" Class="pt-16 px-0">
+        <MudContainer Style="max-width: unset;" Class="mt-6">
+            <div class="d-flex mud-height-full">
+                <main>
+                    <article>
+                        <CascadingValue Value="@openOverlay">
+                            @Body
+                        </CascadingValue>
+                    </article>
+                </main>
+            </div>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+@code {
+    public bool overlayVisivel = false;
+    public bool DrawerExpanded = true;
+    public EventCallback<bool> openOverlay => EventCallback.Factory.Create<bool>(this, OnOpenOverlay);
+    public bool ModoEscuro = false;
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+    private Task OnSystemDarkModeChanged(bool newValue)
+    {
+        ModoEscuro = newValue;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    public async Task OnOpenOverlay(bool visible)
+    {
+        overlayVisivel = visible;
+        StateHasChanged();
+    }
+
+    private void ToggleDrawer()
+    {
+        DrawerExpanded = !DrawerExpanded;
+    }
+
+    public async Task OnChangeDarkMode(bool dark)
+    {
+        ModoEscuro = dark;
+
+        // iplementar um localstorage para salvar a preferência do usuário
+     
+        StateHasChanged();
+    }
+
+}

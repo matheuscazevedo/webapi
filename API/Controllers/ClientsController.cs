@@ -46,7 +46,7 @@ namespace API.Controllers
 
             if (otherClient != null)
             {
-                ModelState.AddModelError("Email", "Este email já está em uso por outro usuário");
+                ModelState.AddModelError("Email", "Este email já está em uso");
                 var validation = new ValidationProblemDetails(ModelState);
                 return BadRequest(validation);
             }
@@ -107,7 +107,7 @@ namespace API.Controllers
 
             if (client == null)
             {
-                return NotFound();
+                return NotFound(); 
             }
 
             context.Clientes.Remove(client);

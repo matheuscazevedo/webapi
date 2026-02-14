@@ -6,51 +6,201 @@
 
 <a class="btn btn-primary mb-3" href="/Clients/Create">Novo cliente</a>
 
-@if (clients == null)
+
+@if (clients != null)
 {
-    <p><em>Carregando...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Telefone</th>
-                <th>Status</th>
-                <th>Data de criação</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var client in clients)
-            {
-                <tr>
-                    <td>@client.Id</td>
-                    <td>@(client.PrimeiroNome + " " + client.Sobrenome)</td>
-                    <td>@client.Email</td>
-                    <td>@client.Telefone</td>
-                    <td>@client.Status</td>
-                    <td>@client.DataCriacao.ToShortDateString()</td>
-                    <td style="white-space:nowrap">
-                        <a class="btn btn-primary btn-sm" href="/Clients/Edit/@client.Id">Edit</a>
-                        <a class="btn btn-danger btn-sm" href="/Clients/Delete/@client.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+
+    <MudGrid Spacing="3">
+        <MudItem sm="12" Class="mt-4">
+            <MudPaper Class="pa-4 mt-6 mud-width-full" Elevation="2">
+                <MudItem sm="12">
+                    <MudItem Class="d-flex mud-width-full" xs="12">
+                        <MudTable Context="cliente" FixedHeader Elevation="4" Class="mud-width-full" Items="@clients" Striped="true" Filter="new Func<Client, bool>(FilterClientes)">
+                            <ToolBarContent>
+                                <MudText Style="margin-right:50%" Typo="Typo.h5">Clientes</MudText>
+                                <MudSpacer />
+                                <MudTextField Variant="Variant.Outlined" Immediate @bind-Value="pesquisaCliente" Placeholder="Pesquisar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                            </ToolBarContent>
+                            <NoRecordsContent>
+                                <MudAlert NoIcon="true" ContentAlignment="HorizontalAlignment.Center">Nenhum registro encontrado</MudAlert>
+                            </NoRecordsContent>
+
+                            <HeaderContent>
+                                <MudTh>Id</MudTh>
+                                <MudTh>Nome</MudTh>
+                                <MudTh>Email</MudTh>
+                                <MudTh>Telefone</MudTh>
+                                <MudTh>Status</MudTh>
+                                <MudTh>Data de Criação</MudTh>
+                                <MudTh Style="width:40px;">Ações</MudTh>
+
+                            </HeaderContent>
+                            <RowTemplate>
+                                
+                                <MudTd>@cliente.Id</MudTd>
+                                <MudTd>@(cliente.PrimeiroNome + " " + cliente.Sobrenome)</MudTd>
+                                <MudTd>@cliente.Email</MudTd>
+                                <MudTd>@cliente.Telefone</MudTd>
+                                <MudTd><MudChip T="string" Color="@GetStatusColor(cliente.Status)">@cliente.Status</MudChip></MudTd>
+                                <MudTd>@cliente.DataCriacao.ToShortDateString()</MudTd>
+                                <MudTd Style="display:flex; text-align: center;">
+
+                                    <MudIconButton @onclick="((e) => Editar(cliente.Id))" Size="@Size.Small" Title="Editar Cliente" Icon="@Icons.Material.Filled.Edit" />
+                                    <MudIconButton @onclick="((e) => Excluir(cliente.Id))" Size="@Size.Small" Title="Editar Cliente" Icon="@Icons.Material.Filled.Delete" />
+
+                                </MudTd>
+                            </RowTemplate>
+                            <PagerContent>
+                                <MudTablePager RowsPerPageString="Linhas por página" InfoFormat="{first_item} - {last_item} de {all_items}" T="Client" />
+                            </PagerContent>
+
+                        </MudTable>
+                    </MudItem>
+
+                </MudItem>
+
+            </MudPaper>
+
+        </MudItem>
+
+    </MudGrid>
 }
 
 
 @code {
-    private List<Client>? clients;
 
+    [Inject]
+    public IDialogService DialogService { get; set; } = default!;
+
+    [Inject]
+    public ISnackbar _snackbar { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    [CascadingParameter]
+    public EventCallback<bool> openOverlay { get; set; }
+
+    protected bool FilterClientes(Client cliente) => FilterFuncClientes(cliente, pesquisaCliente);
+
+    private List<Client>? clients = new();
+    protected string pesquisaCliente = "";
+
+    protected bool FilterFuncClientes(Client cliente, string pesquisa)
+    {
+        if (string.IsNullOrWhiteSpace(pesquisa))
+            return true;
+        if (cliente.Id.ToString().Contains(pesquisa, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (cliente.PrimeiroNome.Contains(pesquisa, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (cliente.Sobrenome.Contains(pesquisa, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (cliente.Email.Contains(pesquisa, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (cliente.Endereco.Contains(pesquisa, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (cliente.Telefone.Contains(pesquisa, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (cliente.DataCriacao.ToShortDateString().Contains(pesquisa, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+
+    protected void Editar(long id)
+    {
+
+        NavigationManager.NavigateTo("Clients/Edit/" + id);
+
+    }
+    protected async Task Excluir(long id)
+    {
+
+        // NavigationManager.NavigateTo("Clients/Delete/" + id);
+        var parameters = new DialogParameters<ConfirmacaoModal>
+        {
+            { x => x.ContentText, "Você tem certeza de que quer deletar este usuário?" },
+            { x => x.ButtonText, "Excluir" },
+            { x => x.Color, Color.Error }
+        };
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = await DialogService.ShowAsync<ConfirmacaoModal>("Delete", parameters, options);
+        var result = await dialog.Result;
+        if (result != null && !result.Canceled)
+        {
+            await DeleteClient(id);
+        }
+    }
     protected override async Task OnInitializedAsync()
     {
-        clients = await Http.GetFromJsonAsync<List<Client>>(
+        await CarregarClientes();
+    }
+    protected async Task CarregarClientes()
+    {
+        await openOverlay.InvokeAsync(true);
+        try
+        {
+            clients = await Http.GetFromJsonAsync<List<Client>>(
             "https://localhost:4000/api/Clients");
+        }
+        catch (Exception e)
+        {
+            clients = new();
+            _snackbar.Clear();
+            _snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+            _snackbar.Add("Ocorreram erros ao consultar os clientes", Severity.Info);
+        }
+        finally
+        {
+            await openOverlay.InvokeAsync(false);
+        }
+    }
+    protected Color GetStatusColor(string status)
+    {
+        return status switch
+        {
+            "Novo" => Color.Info,
+            "Permanente" => Color.Success,
+            "Líder" => Color.Primary,
+            "Casual" => Color.Warning,
+            "Inativo" => Color.Secondary,
+            _ => Color.Default
+        };
+    }
+    protected async Task DeleteClient(long id)
+    {
+        try
+        {
+            await openOverlay.InvokeAsync(true);
+            var response = await Http.DeleteAsync("https://localhost:4000/api/Clients/" + id);
+            if (response.IsSuccessStatusCode)
+            {
+                _snackbar.Clear();
+                _snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+                _snackbar.Add("Cliente deletado com sucesso. ", Severity.Success);
+                await CarregarClientes();
+                StateHasChanged();
+            }
+            else
+            {
+                _snackbar.Clear();
+                _snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+                _snackbar.Add("Erro ao deletar cliente. ", Severity.Error);
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            _snackbar.Clear();
+            _snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+            _snackbar.Add("Ocorreu um erro não esperado. " + ex.Message, Severity.Error);
+            return;
+        }
+        finally
+        {
+            await openOverlay.InvokeAsync(false);
+        }
     }
 }

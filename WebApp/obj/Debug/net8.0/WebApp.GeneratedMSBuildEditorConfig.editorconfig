@@ -3,6 +3,9 @@ build_property.EnableAotAnalyzer =
 build_property.EnableSingleFileAnalyzer = 
 build_property.EnableTrimAnalyzer = false
 build_property.IncludeAllContentForSelfExtract = 
+build_property.MudDebugAnalyzer = 
+build_property.MudAllowedAttributePattern = 
+build_property.MudAllowedAttributeList = 
 build_property.TargetFramework = net8.0
 build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v8.0
@@ -30,12 +33,12 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/boca/Documents/Blazor/webapi/WebApp/Pages/Clients/Create.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50c1xDcmVhdGUucmF6b3I=
+[C:/Users/boca/Documents/Blazor/webapi/WebApp/Modal/ConfirmacaoModal.razor]
+build_metadata.AdditionalFiles.TargetPath = TW9kYWxcQ29uZmlybWFjYW9Nb2RhbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/boca/Documents/Blazor/webapi/WebApp/Pages/Clients/Delete.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50c1xEZWxldGUucmF6b3I=
+[C:/Users/boca/Documents/Blazor/webapi/WebApp/Pages/Clients/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50c1xDcmVhdGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/boca/Documents/Blazor/webapi/WebApp/Pages/Clients/Edit.razor]

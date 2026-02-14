@@ -77,6 +77,9 @@
 @using System.Text.Json.Nodes   
 
 @code {
+    [Inject]
+    public ISnackbar _snackbar { get; set; } = default!;
+
     public ClientDto ClientData { get; set; } = new();
     public JsonNode Errors { get; set; } = new JsonObject();
 
@@ -87,6 +90,9 @@
 
         if (response.IsSuccessStatusCode)
         {
+            _snackbar.Clear();
+            _snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+            _snackbar.Add("Cliente cadastrado com sucesso", Severity.Success);
             navManager.NavigateTo("/Clients");
         }
         else
@@ -101,6 +107,9 @@
             }
             catch (Exception)
             {
+                _snackbar.Clear();
+                _snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+                _snackbar.Add("Erro ao cadastrar o cliente", Severity.Error);
             }
         }
     }

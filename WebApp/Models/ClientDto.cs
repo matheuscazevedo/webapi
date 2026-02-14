@@ -8,6 +8,7 @@
         public string? Telefone { get; set; }
         public string? Endereco { get; set; }
         public string Status { get; set; } = "";
+        public long StatusId { get; set; }
 
     }
 }

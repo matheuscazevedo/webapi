@@ -1,34 +1,10 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">WebApp</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿<MudNavMenu Class="mud-width-full">
+    <MudText Typo="Typo.h6" Class="px-4">Meu CRUD</MudText>
+    <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">Apresentação de WebAPI</MudText>
+    <MudDivider Class="my-2" />
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon=@Icons.Material.Filled.Home> Home</MudNavLink>
+    <MudNavLink Href="Clients" Match="NavLinkMatch.All" Icon=@Icons.Material.Filled.Person> Clientes</MudNavLink>
+</MudNavMenu>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/Clients">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Client
-            </NavLink>
-        </div>
-    </nav>
-</div>
 
-@code {
-    private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
